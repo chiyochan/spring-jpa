@@ -1,0 +1,45 @@
+buildscript {
+	repositories {
+		maven {
+			url 'https://jfrogsaaspoc.jfrog.io/artifactory/gradle-virtual'
+			credentials {
+				username = "${artifactory_user}"
+				password = "${artifactory_password}"
+			}
+		}
+
+	}
+	dependencies {
+		//Check for the latest version here: http://plugins.gradle.org/plugin/com.jfrog.artifactory
+		classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
+		classpath 'org.apache.logging.log4j:log4j-core:2.13.0' //high vulnerability
+		classpath 'com.itextpdf:itextpdf:5.5.11' //agpl 3.0 license
+		classpath 'net.sf.ehcache:ehcache:1.2.4' //opsrisk older than 1 version
+	}
+}
+
+allprojects {
+	apply plugin: "com.jfrog.artifactory"
+}
+
+artifactory {
+	contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+	publish {
+		repository {
+			repoKey = 'gradle-local'
+			username = "${artifactory_user}"
+			password = "${artifactory_password}"
+			maven = true
+
+		}
+	}
+	resolve {
+		repository {
+			repoKey = 'gradle-virtual'
+			username = "${artifactory_user}"
+			password = "${artifactory_password}"
+			maven = true
+
+		}
+	}
+}
