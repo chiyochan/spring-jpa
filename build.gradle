@@ -14,7 +14,7 @@ buildscript {
 		classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
 		classpath 'org.apache.logging.log4j:log4j-core:2.13.0' //high vulnerability
 		classpath 'com.itextpdf:itextpdf:5.5.11' //agpl 3.0 license
-		classpath 'net.sf.ehcache:ehcache:1.2.4' //opsrisk older than 1 version
+		classpath 'net.sf.ehcache:ehcache:2.10.9.2' //opsrisk older than 1 version
 	}
 }
 
